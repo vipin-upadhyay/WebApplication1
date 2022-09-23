@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var success = TempData["Success"];
+}
+@if (TempData["Success"] != null)
+{
+    <div class="row pt-3 alert-success alert-dismissible">
+        @success
+    </div>
+}
+@*<div class="row pt-3">
+    <a asp-page="Registration/AddNewUser">Create New User</a>
+</div>*@
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

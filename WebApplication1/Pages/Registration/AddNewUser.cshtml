@@ -1,0 +1,42 @@
+﻿@page
+@model WebApplication1.Pages.Registration.AddNewUserModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+@if (TempData["Success"] != null)
+{
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script type="text/javascript">
+      toastr.success("@TempData["Success"] ");
+        </script>
+}
+<form method="post">
+    <div class=" text-danger" asp-validation-summary="All"></div>
+    <div class="border p-3 mt-4">
+        <div class="row pb-4">
+            First Name:
+            <input asp-for="registration.FirstName" class="form-control" />
+            <span class="text-danger" asp-validation-for="registration.FirstName"></span>
+        </div>
+        <div class="row pb-4">
+            Last Name:
+            <input asp-for="registration.LastName" class="form-control" />
+            <span class="text-danger" asp-validation-for="registration.LastName"></span>
+        </div>
+        <div class="row pb-4">
+            Email:
+            <input asp-for="registration.Email" class="form-control" />
+            <span class="text-danger" asp-validation-for="registration.Email"></span>
+        </div>
+        <div class="row pb-4">
+            Password:
+            <input asp-for="registration.Password" class="form-control" />
+            <span class="text-danger" asp-validation-for="registration.Password"></span>
+        </div>
+        <button type="submit" class=" btn btn-primary" asp-page="AddNewUser">Create</button>
+        <a asp-page="/Login/Login" class="btn btn-secondary">Back to list</a>
+    </div>
+
+</form>
