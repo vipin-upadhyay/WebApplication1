@@ -20,7 +20,7 @@ namespace WebApplication1.Pages.Login
             
         }
 
-        public async Task<IActionResult> OnPost(string Email, string Password)
+        public async Task<IActionResult> OnPost(string Email, string Password, string returnUrl=null)
         {
 
             var userEmail = appDbContext.GetFirstOrDefault(r => r.Email == Email && r.Password == Password);
@@ -30,13 +30,15 @@ namespace WebApplication1.Pages.Login
                     var firstName = appDbContext.GetFirstOrDefault(x => x.Email == Email && x.Password == Password);
                     TempData["Success"] = "Login Successfull";
                     TempData["FirstName"] = firstName?.FirstName + " " + firstName?.LastName;
-                    return RedirectToPage("../UserDetails/Details");
-                }
+                returnUrl= returnUrl ?? "/UserDetails/Details";
+                return RedirectToPage(returnUrl);
+            }
             
             TempData["Error"] = "Email and password is invalid";
             return Page();
 
         }
+        
 
     }
 }

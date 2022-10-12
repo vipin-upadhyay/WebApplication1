@@ -9,7 +9,7 @@ using WebApplication1.Repository.IRepository;
 
 namespace WebApplication1.Pages.UserDetails
 {
-    [Authorize]
+    //[Authorize]
     public class DetailsModel : PageModel
     {
         public readonly IRegistration appDbContext;

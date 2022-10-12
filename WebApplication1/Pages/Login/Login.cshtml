@@ -43,7 +43,7 @@
             <span asp-validation-for="registration.Password" class="text-danger"></span>
         </div>
         <div class="row">
-            <button type="submit" class=" btn btn-primary" asp-page="">Login</button>
+            <button type="submit" class=" btn btn-primary" asp-page="Login">Login</button>
             @*<button type="submit" class=" btn btn-primary text-danger" asp-page-handler ="/Login/GoogleLogin">Google</button>*@
         </div>
        
@@ -51,10 +51,10 @@
     </div>
         <div class="col-md-6">
             <h1>External login</h1>
-            <a asp-page="/Login/GoogleLogin" asp-route-returlurl="@Model" class="text-danger mx-2">
+            <a asp-page="/Login/GoogleLogin"  class="text-danger mx-2">
                 <i class="bi bi-google"></i>
             </a>
-            <a asp-page="/Login/FacebookLogin" asp-route-returlurl="@Model" class="text-danger mx-2">
+            <a asp-page="/Login/FacebookLogin" class="text-danger mx-2">
                 <i class="bi bi-facebook"></i>
             </a>
            @* <button type="submit" class=" btn btn-primary text-danger" asp-page-handler="/Login/OnPostGoogleLogin">Google</button>*@
@@ -63,7 +63,11 @@
        
     
 </form>
-
-
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+<partial name="_ValidationScriptsPartial" />
+}
 
 

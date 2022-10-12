@@ -4,15 +4,7 @@
 @{
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-@if(TempData["Success"] != null)
-{
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script type="text/javascript">
-  toastr.success("@TempData["Success"] ");
-    </script>
-}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 <div class="container p-3">
     <div class="row p-4">
         <div class="col-6">
@@ -22,7 +14,7 @@
         </div>
     </div>
     <br />
-    <table class="table table-bordered table-striped" style="width:100%">
+    <table id="myTable" class="table table-bordered table-striped table-responsive" style="width:100%; border-top:1px solid rgba(0, 0, 0, 0.3)";>
         <thead>
             <tr>
                 <th>Name</th>
@@ -56,3 +48,16 @@
         }
     </table>
 </div>
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready( function () {
+      $('#myTable').DataTable({
+                searching: false, 
+                paging: false, 
+                info: false
+      });
+});
+    </script>
+}

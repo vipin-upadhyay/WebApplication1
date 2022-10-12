@@ -12,15 +12,14 @@ namespace WebApplication1.Pages.Login
 {
     public class GoogleLoginModel : PageModel
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signinManager;
+        //private readonly UserManager<IdentityUser> userManager;
+        //private readonly SignInManager<IdentityUser> signinManager;
 
         private readonly IRegistration appDbContext;
-        public GoogleLoginModel(IRegistration _appDbContext, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signinManager)
+        public GoogleLoginModel(IRegistration _appDbContext)
         {
             this.appDbContext = _appDbContext;
-            this.userManager = userManager;
-            this.signinManager = signinManager; 
+           
         }
         [BindProperty]
         public Registrations registration { get; set; }
