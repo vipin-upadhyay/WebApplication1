@@ -24,7 +24,7 @@ namespace WebApplication1.Pages.UserDetails
         public void OnGet()
         {
             
-            registration = appDbContext.GetAll();
+            registration = appDbContext.GetAll().OrderBy(x=>x.FirstName).ThenBy(x=>x.LastName);
             TempData["FirstName"] = TempData["FirstName"];
             TempData["Success"] = TempData["Success"];
 
