@@ -21,28 +21,34 @@ namespace WebApplication1.Pages.Registration
 
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(IFormCollection form)
         {
             try
             {
-                var Email = appDbContext.GetFirstOrDefault(x => x.Email == registration.Email);
-                if (Email?.Email == registration.Email)
+                
+                var email = form["registration.Email"];
+                var userEmail = appDbContext.GetFirstOrDefault(x => x.Email == email.ToString());
+                if (userEmail?.Email == email.ToString())
                 {
                     ModelState.AddModelError("Email", "Email already exist ");
                 }
-                    if (ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
 
                     appDbContext.Add(registration);
-                     appDbContext.Save();
-                    TempData["Success"] = "Registration successfull";
-                    return RedirectToPage("/Login/Login");
+                    appDbContext.Save();
+
+                    var msg = "Registration successfull";
+                    TempData["Success"] = msg;
+                    var isValid = true;
+                    return new JsonResult(isValid);
+
                 }
-                return Page();
+                    return Page();
             }
             catch (Exception ex)
             {
-                ex.Data.Add("Id",registration.Id);
+                ex.Data.Add("Id", registration.Id);
                 ex.Data.Add("FirstName", registration.FirstName);
                 ex.Data.Add("LastName", registration.LastName);
                 ex.Data.Add("Email", registration.Email);
@@ -50,5 +56,5 @@ namespace WebApplication1.Pages.Registration
             }
 
         }
-    }
+        }
 }

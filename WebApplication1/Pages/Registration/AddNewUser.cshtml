@@ -12,35 +12,115 @@
       toastr.success("@TempData["Success"] ");
         </script>
 }
-<form id="regForm" method="post">
+<form id="regForm" method="post" >
     <div class=" text-danger" asp-validation-summary="All"></div>
     <div class="border p-3 mt-4">
         <div class="row pb-4">
             First Name:
             <input asp-for="registration.FirstName" class="form-control" />
-            <span class="text-danger" asp-validation-for="registration.FirstName"></span>
+            <span id="firstNameError" class="text-danger" asp-validation-for="registration.FirstName"></span>
         </div>
         <div class="row pb-4">
             Last Name:
-            <input asp-for="registration.LastName" class="form-control" />
-            <span class="text-danger" asp-validation-for="registration.LastName"></span>
+            <input  asp-for="registration.LastName" class="form-control" />
+            <span id="lastNameError" class="text-danger" asp-validation-for="registration.LastName"></span>
         </div>
         <div class="row pb-4">
             Email:
             <input asp-for="registration.Email" class="form-control" />
-            <span class="text-danger" asp-validation-for="registration.Email"></span>
+            <span id="emailError" class="text-danger" asp-validation-for="registration.Email"></span>
         </div>
         <div class="row pb-4">
             Password:
             <input asp-for="registration.Password" class="form-control" />
-            <span class="text-danger" asp-validation-for="registration.Password"></span>
+            <span id="passwordError" class="text-danger" asp-validation-for="registration.Password"></span>
         </div>
-        <button type="submit" class=" btn btn-primary" asp-page="AddNewUser">Create</button>
+        <button type="button" class=" btn btn-primary" onclick="return submitData()">Create</button>
         <a asp-page="/Login/Login" class="btn btn-secondary">Back to list</a>
     </div>
 
 </form>
-@section Scripts{
+@section Scripts {
         <partial name="_ValidationScriptsPartial" />
-       
+    <script type="text/javascript">
+        function submitData() {
+            alert(1);
+            var data = $("#regForm").serialize();
+            console.log(data);
+            if (($("#registration_FirstName").val() === '' && 
+               $("#registration_LastName").val() === '' && 
+               $("#registration_Password").val() === '' && 
+               $("#registration_Email").val() === ''))
+               {
+                $("#firstNameError").text("First name must be required");
+                $("#lastNameError").text("Last name must be required");
+                $("#emailError").text("Email must be required");
+                $("#passwordError").text("Password must be required");
+                 return false;
+               }
+               else if(($("#registration_FirstName").val() === '' && 
+               $("#registration_LastName").val() !== '' && 
+               $("#registration_Password").val() !== '' && 
+               $("#registration_Email").val() !== ''))
+               {
+                   $("#firstNameError").text("First name must be required");
+                   return false;
+               }
+               else if(($("#registration_FirstName").val() != '' && 
+               $("#registration_LastName").val() == '' && 
+               $("#registration_Password").val() != '' && 
+               $("#registration_Email").val() != ''))
+               {
+                   $("#lastNameError").text("Last name must be required");
+                   return false;
+               }
+               else if(($("#registration_FirstName").val() != '' && 
+               $("#registration_LastName").val() != '' && 
+               $("#registration_Password").val() == '' && 
+               $("#registration_Email").val() !== ''))
+               {
+                   $("#passwordError").text("Password must be required");
+                   return false;
+               }
+                else if(($("#registration_FirstName").val() != '' && 
+               $("#registration_LastName").val() != '' && 
+               $("#registration_Password").val() != '' && 
+               $("#registration_Email").val() == ''))
+               {
+                   $("#emailError").text("Email must be required");
+                   return false;
+               }
+               if($("#regForm").valid())
+               {
+                
+               $.ajax({
+                type: 'POST',
+                url:"AddNewUser" ,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: data,
+                success: function (result) {
+                    if(result == true){
+                    alert('Successfully received Data ');
+                    window.location.href="/Login/Login";
+                    }
+                    else{
+                        alert(2);
+                        window.location.href = "/Registration/AddNewUser";
+                    }
+                },
+                error: function (response) {
+                    alert('Failed to receive the Data');
+                    alert(response.statusText);
+                    console.log('Failed ');
+                }
+            });
+            }
+            else
+            {
+                alert("form not valid");
+                return false;
+            }
+         
+        }
+    </script>
 }
