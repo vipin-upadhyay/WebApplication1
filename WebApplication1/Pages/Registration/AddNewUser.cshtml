@@ -44,7 +44,7 @@
         <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
         function submitData() {
-            alert(1);
+           // alert(1);
             var data = $("#regForm").serialize();
             console.log(data);
             if (($("#registration_FirstName").val() === '' && 
@@ -104,7 +104,7 @@
                     window.location.href="/Login/Login";
                     }
                     else{
-                        alert(2);
+                        //alert(2);
                         window.location.href = "/Registration/AddNewUser";
                     }
                 },
